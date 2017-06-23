@@ -22,9 +22,11 @@
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.0",
     "hubot-slack": "^4.3.4",
+    "hubot-star-wars": "^0.2.0",
     "hubot-victory": "^1.5.3",
     "hubot-youtube": "^1.0.2",
-    "soupselect": "^0.2.0"
+    "soupselect": "^0.2.0",
+    "star-wars-api": "^1.0.1"
   },
   "engines": {
     "node": "8.1.x"
