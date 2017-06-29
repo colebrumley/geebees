@@ -21,8 +21,11 @@ module.exports = (robot)->
       message.send text
 
   lookup_reddit = (message, response_handler)->
-    top     = parseInt message.match[3]
-    reddit  = "r/" + message.match[2] + ".json"
+    if message.match[3]
+      top     = parseInt message.match[3]
+    else
+      top     = 1
+    reddit  = "r/" + message.match[2] + "/new.json"
 
     location  = lookup_site + reddit
 
@@ -34,10 +37,15 @@ module.exports = (robot)->
       list  = JSON.parse( body ).data.children
       count = 0
 
-      for item in list
-        if item.data.post_hint == "image"
-          count++
-          text = ( item.data.title || item.data.link_title ) + " - " + ( item.data.url || item.data.body )
-          response_handler text
+      if top > 1
+        for item in list
+          if item.data.post_hint == "image"
+            count++
+            text = ( item.data.title || item.data.link_title ) + " - " + ( item.data.url || item.data.body )
+            response_handler text
 
-        break if count == top
+          break if count == top
+      else
+        rand = Math.floor(Math.random() * 20)
+        text = ( list[rand].data.title || list[rand].data.link_title ) + " - " + ( list[rand].data.url || list[rand].data.body )
+        response_handler text
